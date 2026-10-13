@@ -1,0 +1,38 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: vault-duel-dashboard-backend
+
+  datasource:
+    # Aiven service URI: mysql://avnadmin:PASSWORD@host:port/defaultdb?ssl-mode=REQUIRED
+    # becomes:            jdbc:mysql://host:port/defaultdb?sslMode=REQUIRED
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-this-dev-only-secret-change-this-dev-only-secret}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24h
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  admin:
+    bootstrap-email: ${ADMIN_EMAIL:admin@example.com}
+    bootstrap-password: ${ADMIN_PASSWORD:ChangeMe123!}
+
+logging:
+  level:
+    com.vaultduel.dashboard: INFO
+    org.springframework.security: WARN
